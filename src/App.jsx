@@ -75,7 +75,7 @@ const SERVICES = [
 const BANKS = ["Aadhar Housing Finance","PNB Housing Finance","Hinduja Housing Finance","Piramal Capital & Housing","Bajaj Housing Finance","Tata Capital","Sunman Housing Finance","HDFC Bank"];
 const FAQS  = [
   { q:"What types of loans do you offer?",           a:"We offer Home Loans, Business Loans, Personal Loans, Mortgage/LAP, Project Finance, and Balance Transfer services through our trusted NBFC and bank partners." },
-  { q:"How long does loan approval take?",           a:"Personal loans can be approved in 24–48 hours, home loans in 5–7 working days, and business loans in 3–5 working days depending on documentation." },
+  { q:"How long does loan approval take?",           a:"Approval can take upto 10 working days." },
   { q:"Can I get a loan if I have an existing loan?",a:"Yes! We assess your FOIR and help secure additional loans if eligibility allows. We also offer balance transfers to reduce EMI burden." },
   { q:"Which NBFCs and banks do you work with?",     a:"Aadhar Housing Finance, PNB Housing Finance, Hinduja Housing Finance, Piramal, Bajaj Housing Finance, Tata Capital, Sunman Housing Finance, and HDFC Bank." },
 ];
@@ -178,7 +178,7 @@ function HomePage({ setPage }) {
         <div style={{ position:"absolute", top:0, left:0, right:0, bottom:0, backgroundImage:"radial-gradient(circle at 70% 50%,rgba(201,148,26,0.13) 0%,transparent 60%)", pointerEvents:"none" }}/>
         <div style={{ maxWidth:1100, margin:"0 auto", position:"relative" }}>
           <div style={{ display:"inline-block", background:"rgba(201,148,26,0.18)", border:"1px solid rgba(201,148,26,0.4)", borderRadius:30, padding:"5px 18px", marginBottom:18 }}>
-            <span style={{ color:C.goldLight, fontSize:12, fontWeight:700, letterSpacing:1 }}>✦ TRUSTED FINANCIAL ADVISORS SINCE 2009</span>
+            <span style={{ color:C.goldLight, fontSize:12, fontWeight:700, letterSpacing:1 }}>✦ TRUSTED FINANCIAL ADVISORS SINCE 2021</span>
           </div>
           <h1 style={{ color:C.white, fontSize:50, fontWeight:900, fontFamily:"'Playfair Display',Georgia,serif", margin:"0 0 18px", lineHeight:1.15, maxWidth:660 }}>
            Suchitra Financial Services
@@ -191,7 +191,7 @@ function HomePage({ setPage }) {
           </div>
           <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14, maxWidth:780 }}>
             <StatCard value="8+"   label="Partner NBFCs & Banks"/>
-            <StatCard value="100+" label="Loans Facilitated"/>
+            <StatCard value="1000+" label="Loans Facilitated"/>
             <StatCard value="15+"  label="Loan Products"/>
             <StatCard value="100%" label="Free Consultation"/>
           </div>
@@ -511,10 +511,10 @@ function AboutPage() {
           <div style={{ flex:1 }}>
             <h2 style={{ color:C.navy, fontSize:26, fontWeight:900, fontFamily:"'Playfair Display',Georgia,serif", margin:"0 0 14px" }}>Company Overview</h2>
             <p style={{ color:C.mid, lineHeight:1.8, fontSize:14 }}>Suchitra Financial Services is a leading loan consultancy and Direct Selling Agent (DSA) firm, dedicated to helping individuals, self-employed professionals, business owners, and companies obtain the best financial solutions.</p>
-            <p style={{ color:C.mid, lineHeight:1.8, fontSize:14 }}>Founded in 2009, we have built strong relationships with 8+ NBFCs and banks, enabling us to offer competitive rates and fast approvals.</p>
+            <p style={{ color:C.mid, lineHeight:1.8, fontSize:14 }}>Founded in 2021, Led by a financial professional with over 15 years of experience in the industry,we bring expertise, trust, and customer-focused service to every client interaction.</p>
           </div>
           <div style={{ background:C.navy, borderRadius:18, padding:28, minWidth:200, textAlign:"center" }}>
-            {[["15+","Years of Excellence"],["₹500+ Cr","Loans Facilitated"],["5000+","Happy Clients"],["8+","NBFC Partners"]].map(([val,lb])=>(
+            {[["15+","Years of Financial Expertise"],["₹250+ Cr","Loans Facilitated"],["1000+","Happy Clients"],["8+","NBFC Partners"]].map(([val,lb])=>(
               <div key={lb} style={{ marginBottom:18 }}>
                 <div style={{ color:C.goldLight, fontSize:26, fontWeight:900, fontFamily:"'Playfair Display',Georgia,serif" }}>{val}</div>
                 <div style={{ color:"#9DB8D8", fontSize:11, marginTop:2 }}>{lb}</div>
@@ -536,7 +536,7 @@ function AboutPage() {
             <img src={LOGO_B64} alt="founder" style={{ width:72, height:72, borderRadius:"50%", background:C.white, padding:7, flexShrink:0, objectFit:"contain" }}/>
             <div>
               <div style={{ color:C.goldLight, fontSize:11, fontWeight:700, letterSpacing:1.5, textTransform:"uppercase", marginBottom:7 }}>FOUNDER'S MESSAGE</div>
-              <p style={{ color:C.white, lineHeight:1.8, fontSize:14, fontStyle:"italic", margin:"0 0 18px" }}>"Over the past 15 years, we have helped thousands of families buy their dream homes and entrepreneurs grow their businesses. Our commitment has always been to provide honest, transparent, and expert guidance."</p>
+              <p style={{ color:C.white, lineHeight:1.8, fontSize:14, fontStyle:"italic", margin:"0 0 18px" }}>"Over the past years, we have helped thousands of families buy their dream homes and entrepreneurs grow their businesses. Our commitment has always been to provide honest, transparent, and expert guidance."</p>
               <div style={{ color:C.goldLight, fontWeight:800, fontSize:15 }}>Anugu Ravinder Reddy</div>
               <div style={{ color:"#9DB8D8", fontSize:12 }}>Founder & CEO, Suchitra Financial Services</div>
             </div>
