@@ -115,7 +115,14 @@ function Nav({ page, setPage }) {
   return (
     <nav style={{ background:C.navy, boxShadow:"0 2px 20px rgba(0,0,0,0.3)", position:"sticky", top:0, zIndex:1000 }}>
       <div style={{ maxWidth:1200, margin:"0 auto", padding:"12px 20px", display:"flex", flexDirection:"column", alignItems:"center", gap:10 }}>
-        <div style={{ display:"flex", alignItems:"center", gap:10, cursor:"pointer", alignSelf:"flex-start" }} onClick={()=>setPage("Home")}>
+        <div
+  style={{
+    display:"flex",
+    gap:2,
+    flexWrap:"wrap",
+    justifyContent:"center"
+  }}
+>
           <img src={LOGO_B64} alt="logo" style={{ height:46, borderRadius:7, background:C.white, padding:"2px 5px" }}/>
           <div>
             <div style={{ color:C.white, fontWeight:800, fontSize:15, fontFamily:"'Playfair Display',Georgia,serif", lineHeight:1.1 }}>Suchitra Financial</div>
