@@ -1,5 +1,5 @@
 import { useState, useEffect,useCallback } from "react";
-
+const isMobile = window.innerWidth <= 768;
 // ─────────────────────────────────────────────────────────────────────────────
 // BACKEND API CONFIG
 // Change this to your deployed backend URL when going live.
