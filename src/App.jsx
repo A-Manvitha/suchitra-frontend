@@ -6,7 +6,7 @@ import { useState, useEffect,useCallback } from "react";
 // For local dev: http://localhost:5000/api
 // For Render/Railway: https://your-backend.onrender.com/api
 // ─────────────────────────────────────────────────────────────────────────────
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://suchitra-backend.onrender.com/api";
 
 // ─── SECURE TOKEN STORAGE (sessionStorage — clears on tab close) ──────────────
 const TOKEN_KEY = "sfs_token";
