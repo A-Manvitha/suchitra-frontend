@@ -1,12 +1,12 @@
-import { useState, useEffect,useCallback } from "react";
-const isMobile = window.innerWidth <= 768;
+import { useState, useEffect, useRef, useCallback } from "react";
+
 // ─────────────────────────────────────────────────────────────────────────────
 // BACKEND API CONFIG
 // Change this to your deployed backend URL when going live.
 // For local dev: http://localhost:5000/api
 // For Render/Railway: https://your-backend.onrender.com/api
 // ─────────────────────────────────────────────────────────────────────────────
-const API_BASE = "https://suchitra-backend.onrender.com/api";
+const API_BASE = "http://localhost:5000/api";
 
 // ─── SECURE TOKEN STORAGE (sessionStorage — clears on tab close) ──────────────
 const TOKEN_KEY = "sfs_token";
@@ -75,7 +75,7 @@ const SERVICES = [
 const BANKS = ["Aadhar Housing Finance","PNB Housing Finance","Hinduja Housing Finance","Piramal Capital & Housing","Bajaj Housing Finance","Tata Capital","Sunman Housing Finance","HDFC Bank"];
 const FAQS  = [
   { q:"What types of loans do you offer?",           a:"We offer Home Loans, Business Loans, Personal Loans, Mortgage/LAP, Project Finance, and Balance Transfer services through our trusted NBFC and bank partners." },
-  { q:"How long does loan approval take?",           a:"Approval can take upto 10 working days." },
+  { q:"How long does loan approval take?",           a:"Approval generally takes upto 10 working days." },
   { q:"Can I get a loan if I have an existing loan?",a:"Yes! We assess your FOIR and help secure additional loans if eligibility allows. We also offer balance transfers to reduce EMI burden." },
   { q:"Which NBFCs and banks do you work with?",     a:"Aadhar Housing Finance, PNB Housing Finance, Hinduja Housing Finance, Piramal, Bajaj Housing Finance, Tata Capital, Sunman Housing Finance, and HDFC Bank." },
 ];
@@ -115,21 +115,14 @@ function Nav({ page, setPage }) {
   return (
     <nav style={{ background:C.navy, boxShadow:"0 2px 20px rgba(0,0,0,0.3)", position:"sticky", top:0, zIndex:1000 }}>
       <div style={{ maxWidth:1200, margin:"0 auto", padding:"12px 20px", display:"flex", flexDirection:"column", alignItems:"center", gap:10 }}>
-        <div
-  style={{
-    display:"flex",
-    gap:2,
-    flexWrap:"wrap",
-    justifyContent:"center"
-  }}
->
+        <div style={{ display:"flex", alignItems:"center", gap:10, cursor:"pointer", alignSelf:"flex-start" }} onClick={()=>setPage("Home")}>
           <img src={LOGO_B64} alt="logo" style={{ height:46, borderRadius:7, background:C.white, padding:"2px 5px" }}/>
           <div>
             <div style={{ color:C.white, fontWeight:800, fontSize:15, fontFamily:"'Playfair Display',Georgia,serif", lineHeight:1.1 }}>Suchitra Financial</div>
             <div style={{ color:C.goldLight, fontSize:9, letterSpacing:1.8, textTransform:"uppercase" }}>Services</div>
           </div>
         </div>
-        <div style={{ display:"flex", gap:2, flexWrap:"wrap", justifyContent:"center" }}>
+        <div className="sfs-nav-row" style={{ display:"flex", gap:2, flexWrap:"wrap", justifyContent:"center" }}>
           {items.map(item => (
             <button key={item} onClick={()=>setPage(item)} style={{ background:page===item?C.gold:"transparent", color:page===item?C.white:"#B0C4DE", border:"none", padding:"7px 12px", borderRadius:7, fontWeight:600, fontSize:12, cursor:"pointer", transition:"all 0.18s" }}>
               {item==="Admin" ? "🔐 Admin" : item}
@@ -188,16 +181,15 @@ function HomePage({ setPage }) {
             <span style={{ color:C.goldLight, fontSize:12, fontWeight:700, letterSpacing:1 }}>✦ TRUSTED FINANCIAL ADVISORS SINCE 2021</span>
           </div>
           <h1 style={{ color:C.white, fontSize:50, fontWeight:900, fontFamily:"'Playfair Display',Georgia,serif", margin:"0 0 18px", lineHeight:1.15, maxWidth:660 }}>
-           Suchitra Financial Services
-            Your Trusted Partner for <span style={{ color:C.goldLight }}>Financial Solutions</span>
+            Suchitra Financial Services:Your Trusted Partner for <span style={{ color:C.goldLight }}>Financial Solutions</span>
           </h1>
           <p style={{ color:"#9DB8D8", fontSize:18, maxWidth:580, lineHeight:1.7, margin:"0 0 38px" }}>Helping Individuals and Businesses Secure the Right Loans with Fast Approval and Expert Guidance.</p>
           <div style={{ display:"flex", gap:14, flexWrap:"wrap", marginBottom:56 }}>
             <button style={btn.gold} onClick={()=>setPage("Contact")}>Apply for a Loan →</button>
             <button style={btn.outline} onClick={()=>setPage("Contact")}>Contact Us</button>
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14, maxWidth:780 }}>
-            <StatCard value="8+"   label="Partner NBFCs & Banks"/>
+          <div className="sfs-stat-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14, maxWidth:780 }}>
+            <StatCard value="10+"   label="Banks & Partner NBFCs"/>
             <StatCard value="1000+" label="Loans Facilitated"/>
             <StatCard value="15+"  label="Loan Products"/>
             <StatCard value="100%" label="Free Consultation"/>
@@ -212,8 +204,8 @@ function HomePage({ setPage }) {
             <div style={{ color:C.gold, fontSize:12, fontWeight:700, letterSpacing:2, textTransform:"uppercase", marginBottom:10 }}>WHY CHOOSE US</div>
             <h2 style={{ fontSize:36, fontWeight:900, color:C.navy, fontFamily:"'Playfair Display',Georgia,serif", margin:0 }}>The Suchitra Advantage</h2>
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:22 }}>
-            {[["🏆","Expert Guidance","15+ years of experience helping clients navigate the complex loan landscape."],["⚡","Fast Approvals","Strong banking relationships ensure personal loans in as little as 24 hours."],["🤝","8+ NBFC Partners","Access to the best rates from 8+ NBFCs and banks."],["🔒","Transparent Process","No hidden charges. We disclose all fees upfront."],["📱","End-to-End Support","From application to disbursement, we handle everything."],["💰","Best Interest Rates","We negotiate on your behalf for the lowest possible rates."]].map(([icon,title,desc],i) => (
+          <div className="sfs-grid-3" style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:22 }}>
+            {[["🏆","Expert Guidance","5+ years of experience helping clients navigate the complex loan landscape."],["⚡","Fast Approvals","Strong banking relationships ensure personal loans in as little as 24 hours."],["🤝","10+ Banks & NBFC Partners","Access to the best rates from 10+ banks."],["🔒","Transparent Process","No hidden charges. We disclose all fees upfront."],["📱","End-to-End Support","From application to disbursement, we handle everything."],["💰","Best Interest Rates","We negotiate on your behalf for the lowest possible rates."]].map(([icon,title,desc],i) => (
               <div key={i} style={{ ...card, display:"flex", flexDirection:"column", gap:12 }}>
                 <div style={{ fontSize:34 }}>{icon}</div>
                 <h3 style={{ margin:0, fontSize:18, fontWeight:800, color:C.navy, fontFamily:"'Playfair Display',Georgia,serif" }}>{title}</h3>
@@ -231,7 +223,7 @@ function HomePage({ setPage }) {
             <div style={{ color:C.gold, fontSize:12, fontWeight:700, letterSpacing:2, textTransform:"uppercase", marginBottom:10 }}>WHAT WE OFFER</div>
             <h2 style={{ fontSize:36, fontWeight:900, color:C.navy, fontFamily:"'Playfair Display',Georgia,serif", margin:0 }}>Our Loan Services</h2>
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:18 }}>
+          <div className="sfs-grid-4" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:18 }}>
             {SERVICES.map(s => (
               <div key={s.id} onClick={()=>setPage("Services")} style={{ background:C.white, border:`2px solid ${C.border}`, borderRadius:14, padding:"22px 18px", cursor:"pointer", textAlign:"center", transition:"all 0.22s" }}
                 onMouseEnter={e=>{ e.currentTarget.style.borderColor=C.gold; e.currentTarget.style.boxShadow="0 8px 28px rgba(201,148,26,0.15)"; e.currentTarget.style.transform="translateY(-4px)"; }}
@@ -285,7 +277,7 @@ function HomePage({ setPage }) {
 // ─── SERVICES PAGE ────────────────────────────────────────────────────────────
 function ServicesPage({ setPage, showToast }) {
   const [active,    setActive]    = useState(null);
-  const [form,      setForm]      = useState({ name:"",phone:"",email:"",amount:"",message:"" });
+  const [form,      setForm]      = useState({ name:"",phone:"",email:"",amount:"",occupation:"",message:"" });
   const [submitted, setSubmitted] = useState(false);
   const [loading,   setLoading]   = useState(false);
   const svc = active ? SERVICES.find(s=>s.id===active) : null;
@@ -295,7 +287,7 @@ function ServicesPage({ setPage, showToast }) {
     if(!/^[6-9]\d{9}$/.test(form.phone)){ showToast("Enter a valid 10-digit mobile number","error"); return; }
     setLoading(true);
     try {
-      await API.submitLead({ name:form.name, phone:form.phone, email:form.email, loanType:svc.title, loanAmount:parseFloat(form.amount)||0, message:form.message, source:"Website" });
+      await API.submitLead({ name:form.name, phone:form.phone, email:form.email, loanType:svc.title, loanAmount:parseFloat(form.amount)||0,occupation:form.occupation, message:form.message, source:"Website" });
       setSubmitted(true);
       setTimeout(()=>{ setSubmitted(false); setActive(null); setForm({ name:"",phone:"",email:"",amount:"",message:"" }); }, 4000);
     } catch(err){ showToast(err.message||"Submission failed. Please WhatsApp us.","error"); }
@@ -313,7 +305,7 @@ function ServicesPage({ setPage, showToast }) {
         </div>
       </div>
       <div style={{ maxWidth:900, margin:"0 auto", padding:"48px 24px" }}>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:22, marginBottom:36 }}>
+        <div className="sfs-grid-3" style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:22, marginBottom:36 }}>
           {[["Benefits",["Competitive interest rates","Minimal documentation","Flexible repayment tenure","Quick disbursement","Dedicated relationship manager"],C.success,"✓"],
             ["Eligibility",["Age: 21–65 years","Min. income: ₹25,000/month","Employment: 2+ years","Credit score: 700+","ITR for 2 years (self-employed)"],C.blue,"●"],
             ["Documents",["Aadhar Card / PAN Card","Salary slips (3 months)","Bank statements (6 months)","Property documents","ITR / Form 16"],C.gold,"📄"]].map(([title,items,col,bullet])=>(
@@ -343,13 +335,21 @@ function ServicesPage({ setPage, showToast }) {
               <p style={{ color:C.mid }}>Our team will call you within 24 hours.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:18 }}>
+            <form onSubmit={handleSubmit} className="sfs-form-2col" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:18 }}>
               {[["Full Name *","name","text"],["Phone Number *","phone","tel"],["Email Address","email","email"],["Loan Amount Required","amount","text"]].map(([lb,k,t])=>(
                 <div key={k}>
                   <label style={label}>{lb}</label>
                   <input type={t} required={k==="name"||k==="phone"} placeholder={lb.replace(" *","")} style={input} value={form[k]} onChange={e=>setForm(p=>({...p,[k]:e.target.value}))}/>
                 </div>
               ))}
+              <div><label style={label}>Occupation</label>
+  <select style={input} value={form.occupation} onChange={e=>setForm(p=>({...p,occupation:e.target.value}))}>
+    <option value="">Select Occupation</option>
+    <option value="Salaried">Salaried</option>
+    <option value="Self-Employed">Self-Employed</option>
+    <option value="Business Owner">Business Owner</option>
+  </select>
+</div>
               <div style={{ gridColumn:"span 2" }}>
                 <label style={label}>Additional Message</label>
                 <textarea rows={3} style={{ ...input, resize:"vertical" }} placeholder="Tell us more about your requirement..." value={form.message} onChange={e=>setForm(p=>({...p,message:e.target.value}))}/>
@@ -372,7 +372,7 @@ function ServicesPage({ setPage, showToast }) {
         <p style={{ color:"#9DB8D8", fontSize:16, maxWidth:560, margin:"0 auto" }}>Comprehensive financial solutions tailored to your needs.</p>
       </div>
       <div style={{ maxWidth:1100, margin:"0 auto", padding:"58px 24px" }}>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:26 }}>
+        <div className="sfs-grid-2" style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:26 }}>
           {SERVICES.map(s=>(
             <div key={s.id} onClick={()=>setActive(s.id)} style={{ ...card, cursor:"pointer", display:"flex", gap:18, alignItems:"flex-start", transition:"all 0.22s" }}
               onMouseEnter={e=>{ e.currentTarget.style.boxShadow="0 12px 40px rgba(11,29,58,0.15)"; e.currentTarget.style.transform="translateY(-3px)"; }}
@@ -410,7 +410,7 @@ function EMIPage() {
         <h1 style={{ color:C.white, fontSize:42, fontWeight:900, fontFamily:"'Playfair Display',Georgia,serif", margin:0 }}>EMI Calculator</h1>
       </div>
       <div style={{ maxWidth:880, margin:"0 auto", padding:"58px 24px" }}>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:30 }}>
+        <div className="sfs-grid-split" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:30 }}>
           <div style={card}>
             <h3 style={{ color:C.navy, fontSize:18, fontWeight:800, fontFamily:"'Playfair Display',Georgia,serif", margin:"0 0 26px" }}>Loan Details</h3>
             {[
@@ -433,7 +433,7 @@ function EMIPage() {
               <div style={{ color:C.goldLight, fontSize:42, fontWeight:900, fontFamily:"'Playfair Display',Georgia,serif", margin:"7px 0" }}>{fmt(emi)}</div>
               <div style={{ color:"#6B85A0", fontSize:12 }}>per month</div>
             </div>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14, marginBottom:18 }}>
+            <div className="sfs-grid-2" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14, marginBottom:18 }}>
               {[["Principal",fmt(amount),C.blue],["Total Interest",fmt(interest),C.gold],["Total Payment",fmt(total),C.navy],["Interest %",(100-pPct)+"% of total",C.mid]].map(([lb,val,col])=>(
                 <div key={lb} style={{ background:C.offWhite, borderRadius:11, padding:14, border:`1.5px solid ${C.border}` }}>
                   <div style={{ color:C.light, fontSize:11, fontWeight:700, textTransform:"uppercase", letterSpacing:0.5, marginBottom:5 }}>{lb}</div>
@@ -483,7 +483,7 @@ function EligibilityPage() {
       </div>
       <div style={{ maxWidth:680, margin:"0 auto", padding:"58px 24px" }}>
         <div style={card}>
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:18, marginBottom:22 }}>
+          <div className="sfs-grid-2" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:18, marginBottom:22 }}>
             <div><label style={label}>Monthly Income (₹)</label><input type="number" value={form.income} onChange={e=>setForm(p=>({...p,income:+e.target.value}))} style={input}/></div>
             <div><label style={label}>Existing EMI Obligations (₹)</label><input type="number" value={form.obligations} onChange={e=>setForm(p=>({...p,obligations:+e.target.value}))} style={input}/></div>
             <div><label style={label}>Occupation</label><select value={form.occupation} onChange={e=>setForm(p=>({...p,occupation:e.target.value}))} style={input}><option value="salaried">Salaried</option><option value="self-employed">Self-Employed</option><option value="business">Business Owner</option></select></div>
@@ -518,10 +518,10 @@ function AboutPage() {
           <div style={{ flex:1 }}>
             <h2 style={{ color:C.navy, fontSize:26, fontWeight:900, fontFamily:"'Playfair Display',Georgia,serif", margin:"0 0 14px" }}>Company Overview</h2>
             <p style={{ color:C.mid, lineHeight:1.8, fontSize:14 }}>Suchitra Financial Services is a leading loan consultancy and Direct Selling Agent (DSA) firm, dedicated to helping individuals, self-employed professionals, business owners, and companies obtain the best financial solutions.</p>
-            <p style={{ color:C.mid, lineHeight:1.8, fontSize:14 }}>Founded in 2021, Led by a financial professional with over 15 years of experience in the industry,we bring expertise, trust, and customer-focused service to every client interaction.</p>
+            <p style={{ color:C.mid, lineHeight:1.8, fontSize:14 }}>Founded in 2021, Led by a financial professional with over 15 years of experience in the industry, we bring expertise, trust, and customer-focused service to every client interaction.</p>
           </div>
           <div style={{ background:C.navy, borderRadius:18, padding:28, minWidth:200, textAlign:"center" }}>
-            {[["15+","Years of Financial Expertise"],["₹250+ Cr","Loans Facilitated"],["1000+","Happy Clients"],["8+","NBFC Partners"]].map(([val,lb])=>(
+            {[["5+","Years of Excellence"],["₹250+ Cr","Loans Facilitated"],["1000+","Happy Clients"],["10+","Banks & NBFC Partners"]].map(([val,lb])=>(
               <div key={lb} style={{ marginBottom:18 }}>
                 <div style={{ color:C.goldLight, fontSize:26, fontWeight:900, fontFamily:"'Playfair Display',Georgia,serif" }}>{val}</div>
                 <div style={{ color:"#9DB8D8", fontSize:11, marginTop:2 }}>{lb}</div>
@@ -529,7 +529,7 @@ function AboutPage() {
             ))}
           </div>
         </div>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:22, marginBottom:28 }}>
+        <div className="sfs-grid-2" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:22, marginBottom:28 }}>
           {[["🎯","Our Vision",`4px solid ${C.blue}`,"To be the most trusted financial solutions partner in Andhra Pradesh & Telangana, empowering every individual and business to achieve their financial goals."],["🚀","Our Mission",`4px solid ${C.gold}`,"To simplify the loan process by leveraging strong banking relationships, technology, and expertise — ensuring transparency, speed, and the best financial outcomes."]].map(([icon,title,bt,text])=>(
             <div key={title} style={{ ...card, borderTop:bt }}>
               <div style={{ fontSize:30, marginBottom:10 }}>{icon}</div>
@@ -551,7 +551,7 @@ function AboutPage() {
         </div>
         <div style={card}>
           <h3 style={{ color:C.navy, fontSize:22, fontWeight:800, fontFamily:"'Playfair Display',Georgia,serif", margin:"0 0 22px" }}>Our Core Values</h3>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:18 }}>
+          <div className="sfs-grid-4" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:18 }}>
             {[["🤝","Integrity","Transparent dealings with zero hidden agendas"],["⚡","Speed","Fast approvals without compromising accuracy"],["💡","Expertise","Certified advisors with deep product knowledge"],["❤️","Client First","Your financial success is our only goal"]].map(([icon,title,desc])=>(
               <div key={title} style={{ textAlign:"center" }}>
                 <div style={{ fontSize:32, marginBottom:8 }}>{icon}</div>
@@ -568,8 +568,7 @@ function AboutPage() {
 
 // ─── CONTACT PAGE ─────────────────────────────────────────────────────────────
 function ContactPage({ showToast }) {
-  const [form, setForm]         = useState({ name:"",phone:"",email:"",loanType:"Home Loan",message:"" });
-  const [submitted, setSubmitted] = useState(false);
+const [form, setForm] = useState({ name:"",phone:"",email:"",loanType:"Home Loan",occupation:"",message:"" });  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading]   = useState(false);
 
   const handleSubmit = async (e) => {
@@ -577,7 +576,7 @@ function ContactPage({ showToast }) {
     if(!/^[6-9]\d{9}$/.test(form.phone)){ showToast("Enter a valid 10-digit mobile number","error"); return; }
     setLoading(true);
     try {
-      await API.submitLead({ name:form.name, phone:form.phone, email:form.email, loanType:form.loanType, message:form.message, source:"Website" });
+      await API.submitLead({ name:form.name, phone:form.phone, email:form.email, loanType:form.loanType,occupation:form.occupation ,message:form.message, source:"Website" });
       setSubmitted(true); setTimeout(()=>setSubmitted(false),5000);
     } catch(err){ showToast(err.message||"Failed to send. Please WhatsApp us.","error"); }
     finally{ setLoading(false); }
@@ -591,7 +590,7 @@ function ContactPage({ showToast }) {
         <p style={{ color:"#9DB8D8", fontSize:16, marginTop:10 }}>We respond within 2 hours on business days</p>
       </div>
       <div style={{ maxWidth:1080, margin:"0 auto", padding:"58px 24px" }}>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1.5fr", gap:30 }}>
+        <div className="sfs-grid-split" style={{ display:"grid", gridTemplateColumns:"1fr 1.5fr", gap:30 }}>
           <div style={{ display:"flex", flexDirection:"column", gap:18 }}>
             <div style={card}>
               <h3 style={{ color:C.navy, fontSize:18, fontWeight:800, fontFamily:"'Playfair Display',Georgia,serif", margin:"0 0 22px" }}>Reach Us Directly</h3>
@@ -614,7 +613,7 @@ function ContactPage({ showToast }) {
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display:"flex", flexDirection:"column", gap:16 }}>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16 }}>
+                <div className="sfs-form-2col" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16 }}>
                   <div><label style={label}>Full Name *</label><input required style={input} placeholder="Your full name" value={form.name} onChange={e=>setForm(p=>({...p,name:e.target.value}))}/></div>
                   <div><label style={label}>Phone Number *</label><input required type="tel" style={input} placeholder="10-digit mobile" value={form.phone} onChange={e=>setForm(p=>({...p,phone:e.target.value}))}/></div>
                 </div>
@@ -624,6 +623,14 @@ function ContactPage({ showToast }) {
                     {["Home Loan","Business Loan","Personal Loan","Mortgage / LAP","Project Finance","Balance Transfer"].map(t=><option key={t}>{t}</option>)}
                   </select>
                 </div>
+                <div><label style={label}>Occupation</label>
+  <select style={input} value={form.occupation} onChange={e=>setForm(p=>({...p,occupation:e.target.value}))}>
+    <option value="">Select Occupation</option>
+    <option value="Salaried">Salaried</option>
+    <option value="Self-Employed">Self-Employed</option>
+    <option value="Business Owner">Business Owner</option>
+  </select>
+</div>
                 <div><label style={label}>Message / Requirement</label><textarea rows={4} style={{ ...input,resize:"vertical" }} placeholder="Tell us about your loan requirement..." value={form.message} onChange={e=>setForm(p=>({...p,message:e.target.value}))}/></div>
                 <button type="submit" disabled={loading} style={{ ...btn.gold,padding:15,fontSize:15,width:"100%",opacity:loading?0.7:1 }}>{loading?"Sending…":"Send Inquiry →"}</button>
                 <p style={{ color:C.light, fontSize:11, textAlign:"center", margin:0 }}>We never share your information with third parties.</p>
@@ -687,7 +694,7 @@ function LeadModal({ lead, onClose, onUpdate, showToast }) {
       <div style={{ ...card, maxWidth:620, width:"100%", maxHeight:"90vh", overflowY:"auto", position:"relative" }}>
         <button onClick={onClose} style={{ position:"absolute", top:14, right:14, background:"none", border:"none", fontSize:24, cursor:"pointer", color:C.light }}>×</button>
         <h2 style={{ color:C.navy, fontSize:20, fontWeight:800, fontFamily:"'Playfair Display',Georgia,serif", margin:"0 0 18px" }}>Lead Details</h2>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14, marginBottom:18 }}>
+        <div className="sfs-grid-2" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14, marginBottom:18 }}>
           {[["Name",lead.name],["Phone",lead.phone],["Email",lead.email||"—"],["Loan Type",lead.loanType],["Loan Amount",fmtAmt(lead.loanAmount)],["Monthly Income",fmtAmt(lead.monthlyIncome)],["Occupation",lead.occupation||"—"],["Source",lead.source||"Website"],["Date",lead.createdAt?new Date(lead.createdAt).toLocaleDateString("en-IN"):"—"]].map(([k,v])=>(
             <div key={k}><div style={{ fontSize:10, fontWeight:700, color:C.light, textTransform:"uppercase", letterSpacing:0.5, marginBottom:2 }}>{k}</div><div style={{ fontSize:14, color:C.dark, fontWeight:500 }}>{v}</div></div>
           ))}
@@ -748,7 +755,7 @@ function AdminPage({ showToast }) {
       if(err.message.includes("authorised")||err.message.includes("token")){ clearToken(); setAuthed(false); showToast("Session expired. Please log in again.","warn"); }
       else showToast(err.message,"error");
     } finally{ setLoading(false); }
-  },[pg,filter,search,showToast]);
+  },[pg,filter,search]);
 
   useEffect(()=>{ if(authed) loadLeads(); },[authed,loadLeads]);
   useEffect(()=>{
@@ -823,7 +830,7 @@ function AdminPage({ showToast }) {
       <div style={{ maxWidth:1200, margin:"0 auto", padding:"28px 22px" }}>
         <BackendBanner/>
         {/* Stats */}
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(5,1fr)", gap:14, marginBottom:24 }}>
+        <div className="sfs-grid-5" style={{ display:"grid", gridTemplateColumns:"repeat(5,1fr)", gap:14, marginBottom:24 }}>
           {[["Total",stats.total||0,C.navy,"📊"],["New",stats.byStatus?.New||0,C.blue,"🆕"],["In Progress",stats.byStatus?.["In Progress"]||0,C.warn,"⚡"],["Approved",stats.byStatus?.Approved||0,C.success,"✅"],["Today",stats.todayCount||0,"#5B21B6","📅"]].map(([lb,val,col,icon])=>(
             <div key={lb} style={{ background:C.white, borderRadius:12, padding:"16px 18px", border:`1px solid ${C.border}`, borderLeft:`5px solid ${col}` }}>
               <div style={{ fontSize:22, marginBottom:5 }}>{icon}</div>
@@ -906,7 +913,7 @@ function Footer({ setPage }) {
   return (
     <footer style={{ background:"#070F1D", padding:"48px 24px 22px", color:"#7A8FA3" }}>
       <div style={{ maxWidth:1100, margin:"0 auto" }}>
-        <div style={{ display:"grid", gridTemplateColumns:"2fr 1fr 1fr 1fr", gap:36, marginBottom:36 }}>
+        <div className="sfs-grid-4" style={{ display:"grid", gridTemplateColumns:"2fr 1fr 1fr 1fr", gap:36, marginBottom:36 }}>
           <div>
             <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:18 }}>
               <img src={LOGO_B64} alt="logo" style={{ height:40, borderRadius:7, background:C.white, padding:"2px 4px" }}/>
@@ -957,12 +964,40 @@ export default function App() {
   return (
     <div style={{ fontFamily:"'Lato','Segoe UI',sans-serif", minHeight:"100vh", background:C.white }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Lato:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+      <style>{`
+        * { -webkit-tap-highlight-color: transparent; }
+        body { overflow-x: hidden; }
+
+        @media (max-width: 880px) {
+          .sfs-grid-2, .sfs-grid-3, .sfs-grid-4, .sfs-grid-5 { grid-template-columns: repeat(2, 1fr) !important; }
+          .sfs-grid-split { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 640px) {
+          .sfs-grid-2, .sfs-grid-3, .sfs-grid-4, .sfs-grid-5, .sfs-grid-split,
+          .sfs-form-2col { grid-template-columns: 1fr !important; }
+
+          h1 { font-size: 28px !important; line-height: 1.25 !important; }
+          h2 { font-size: 24px !important; }
+          h3 { font-size: 17px !important; }
+
+          .sfs-nav-row { flex-wrap: wrap !important; justify-content: center !important; }
+          .sfs-nav-row button { font-size: 11px !important; padding: 6px 9px !important; }
+
+          .sfs-stat-grid { grid-template-columns: repeat(2,1fr) !important; }
+
+          table { font-size: 11px !important; }
+          th, td { padding: 8px 6px !important; }
+        }
+        @media (max-width: 420px) {
+          .sfs-stat-grid { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+        }
+      `}</style>
       {toast && <Toast msg={toast.msg} type={toast.type} onClose={dismissToast}/>}
       <Nav page={page} setPage={setPage}/>
       <main>{renderPage()}</main>
       {page!=="Admin" && <Footer setPage={setPage}/>}
       {page!=="Admin" && (
-        <a href="https://wa.me/919949903372" target="_blank" rel="noopener noreferrer" style={{ position:"fixed", bottom:26, right:26, background:"#25D366", color:C.white, width:56, height:56, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:26, textDecoration:"none", boxShadow:"0 4px 18px rgba(37,211,102,0.4)", zIndex:999 }}>💬</a>
+        <a href="https://wa.me/919949903372" target="_blank" rel="noopener" style={{ position:"fixed", bottom:26, right:26, background:"#25D366", color:C.white, width:56, height:56, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:26, textDecoration:"none", boxShadow:"0 4px 18px rgba(37,211,102,0.4)", zIndex:999 }}>💬</a>
       )}
     </div>
   );
