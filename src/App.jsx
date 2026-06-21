@@ -997,7 +997,7 @@ export default function App() {
       <main>{renderPage()}</main>
       {page!=="Admin" && <Footer setPage={setPage}/>}
       {page!=="Admin" && (
-        <a href="https://wa.me/919949903372" target="_blank" rel="noopener noreferre" style={{ position:"fixed", bottom:26, right:26, background:"#25D366", color:C.white, width:56, height:56, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:26, textDecoration:"none", boxShadow:"0 4px 18px rgba(37,211,102,0.4)", zIndex:999 }}>💬</a>
+        <a href="https://wa.me/919949903372" target="_blank" rel="noopener noreferrer" style={{ position:"fixed", bottom:26, right:26, background:"#25D366", color:C.white, width:56, height:56, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:26, textDecoration:"none", boxShadow:"0 4px 18px rgba(37,211,102,0.4)", zIndex:999 }}>💬</a>
       )}
     </div>
   );
