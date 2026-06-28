@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback } from "react";
 // For local dev: http://localhost:5000/api
 // For Render/Railway: https://your-backend.onrender.com/api
 // ─────────────────────────────────────────────────────────────────────────────
-const API_BASE = process.env.REACT_APP_API_URL;
+const API_BASE = "https://suchitra-backend.onrender.com/api";
 
 // ─── SECURE TOKEN STORAGE (sessionStorage — clears on tab close) ──────────────
 const TOKEN_KEY = "sfs_token";
@@ -30,7 +30,7 @@ async function apiFetch(path, opts = {}) {
   return data;
 }
 
-const API = {
+ {
   // Public
   submitLead:  (b) => apiFetch("/leads/submit",  { method:"POST", body:JSON.stringify(b) }),
   health:      ()  => apiFetch("/health"),
@@ -86,7 +86,7 @@ const fmt     = (n) => "₹" + Math.round(n).toLocaleString("en-IN");
 const fmtAmt  = (n) => n ? "₹"+Number(n).toLocaleString("en-IN") : "—";
 
 // ─── SHARED STYLES ────────────────────────────────────────────────────────────
-const btn = {
+const btn = {const API =
   gold:  { background:C.gold,   color:C.white, border:"none", padding:"13px 28px", borderRadius:8, fontWeight:700, fontSize:15, cursor:"pointer", fontFamily:"'Playfair Display',Georgia,serif" },
   navy:  { background:C.navy,   color:C.white, border:"none", padding:"10px 22px", borderRadius:8, fontWeight:700, fontSize:13, cursor:"pointer" },
   ghost: { background:"rgba(255,255,255,0.1)", color:C.white, border:"1px solid rgba(255,255,255,0.25)", padding:"9px 18px", borderRadius:8, cursor:"pointer", fontSize:13 },
