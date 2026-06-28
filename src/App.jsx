@@ -30,7 +30,7 @@ async function apiFetch(path, opts = {}) {
   return data;
 }
 
- {
+ const API= {
   // Public
   submitLead:  (b) => apiFetch("/leads/submit",  { method:"POST", body:JSON.stringify(b) }),
   health:      ()  => apiFetch("/health"),
